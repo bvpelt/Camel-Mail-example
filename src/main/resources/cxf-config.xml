@@ -1,0 +1,24 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+    <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml"/>
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
+
+    <!-- implementation of the webservice -->
+    <bean id="reportIncidentEndpoint" class="nl.bsoft.camelex.ReportIncidentEndpointImpl"/>
+
+    <!-- export the webservice using jaxws -->
+    <jaxws:endpoint id="reportIncident"
+                    implementor="#reportIncidentEndpoint"
+                    address="/incident"
+                    wsdlLocation="/WEB-INF/wsdl/report_incident.wsdl"
+                    endpointName="s:ReportIncidentPort"
+                    serviceName="s:ReportIncidentService"
+                    xmlns:s="http://reportincident.example.camel.apache.org"/>
+
+</beans>
